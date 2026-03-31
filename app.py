@@ -15,10 +15,7 @@ st.sidebar.image(image, width=150)
 def load_data(platform):
     df = pd.read_csv(f'{platform.lower()}_cleaned.csv')
     df['date_added'] = pd.to_datetime(df['date_added'], errors='coerce')
-    df['duration'] = pd.to_numeric(
-        df['duration'].str.replace(' min', '').str.replace(' Season.*', '', regex=True),
-        errors='coerce'
-    )
+    df['duration'] = pd.to_numeric(df['duration'],errors='coerce')
     return df
 
 df = load_data(selected_platform)
