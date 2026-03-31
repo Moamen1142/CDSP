@@ -91,13 +91,18 @@ with tab2:
 with tab3:
     col1, col2 = st.columns(2)
 
-    fig7=px.bar_polar(r=filtered_df['listed_in'].str.get_dummies(sep=', ').sum().values,
-             theta=filtered_df['listed_in'].str.get_dummies(sep=', ').sum().index,
-             color_discrete_sequence=color)
+    top_countries=df[df.type==selected_type].country.str.rstrip(',').str.get_dummies(sep=', ').sum().sort_values(ascending=False)[:10].to_frame().reset_index()
+    top_countries.columns=['Country','Titles']
+    fig7=px.bar(data_frame=top_countries,
+       x='Country',
+       y='Titles',
+       title=f'Top 10 Countries on {selected_platform}',
+       color_discrete_sequence=color)
 
-    fig8=px.bar_polar(r=filtered_df.groupby(filtered_df.rating.map(mask))['title'].count().values,
-             theta=filtered_df.groupby(filtered_df.rating.map(mask))['title'].count().index,
-             color_discrete_sequence=color)         
+    fig8=px.bar_polar(r=df[df.type==selected_type].groupby(df.date_added.dt.month_name())['title'].count().values,
+             theta=df[df.type==selected_type].groupby(df.date_added.dt.month_name())['title'].count().index,
+             color_discrete_sequence=color,
+             title=f'Most Active Months on {selected_platform}')         
 
     with col1:
         st.plotly_chart(fig7, use_container_width=True)
@@ -105,5 +110,5 @@ with tab3:
         # st.plotly_chart(fig5, use_container_width=True)     
     with col2:
         st.plotly_chart(fig8, use_container_width=True)
-    #     # st.plotly_chart(fig4, use_container_width=True)
-    #     # st.plotly_chart(fig6, use_container_width=True)
+        # st.plotly_chart(fig4, use_container_width=True)
+        # st.plotly_chart(fig6, use_container_width=True)
