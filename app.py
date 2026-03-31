@@ -11,7 +11,7 @@ image = 'https://www.logo.wine/a/logo/Disney%2B/Disney%2B-Logo.wine.svg' if sele
 
 st.image(image,width=200)
 
-df = pd.read_csv(f'{selected_platform}_cleaned.csv')
+df = pd.read_csv(f'{str(selected_platform).lower()}_cleaned.csv')
 df['date_added'] = pd.to_datetime(df['date_added'])
 df['duration'] = pd.to_numeric(df['duration'])
 
