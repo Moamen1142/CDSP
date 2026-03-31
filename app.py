@@ -4,8 +4,8 @@ import numpy as np
 import plotly.express as px
 import seaborn as sns
 
-selected_platform = st.sidebar.selectbox('Platform', options=['NETFLIX', 'DISNEY'])
 st.set_page_config(page_title=f'{selected_platform} Dashboard', layout='wide')
+selected_platform = st.sidebar.selectbox('Platform', options=['NETFLIX', 'DISNEY'])
 
 color = ['#006E99', '#003B6F', '#C9A84C', '#F5E6C8', '#FFFFFF']  if selected_platform=='DISNEY' else ['#221f1f', '#b20710', '#e50914','#f5f5f1']
 image = 'https://www.logo.wine/a/logo/Disney%2B/Disney%2B-Logo.wine.svg' if selected_platform=='DISNEY' else 'https://www.logo.wine/a/logo/Netflix/Netflix-Logo.wine.svg'
